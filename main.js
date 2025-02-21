@@ -1,10 +1,8 @@
 'use strict'
 import fs from 'fs/promises'
+import { styleText } from 'util'
 
 const __dirname = import.meta.dirname
-const tasks = await getTasks()
-addNewTask('asjkfioahwfksahd')
-await saveTasks()
 
 async function getTasks () {
   try {
@@ -57,4 +55,20 @@ function getNextId () {
     nextId++
   }
   return nextId
+}
+
+function logAction (action, id, details = '') {
+  const timeNow = new Date().toUTCString()
+
+  const actionColor = action === 'delete'
+    ? 'redBright'
+    : 'greenBright'
+  const timeColor = 'black'
+  const idColor = 'cyanBright'
+
+  let output = styleText(timeColor, `TIME ${timeNow} - `)
+  output += styleText(actionColor, `${action} `)
+  output += `TASK [${styleText(idColor, `ID: ${id}`)}] - `
+  output += details
+  console.log(output)
 }
