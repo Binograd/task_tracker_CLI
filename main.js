@@ -2,19 +2,27 @@
 import fs from 'fs/promises'
 
 const __dirname = import.meta.dirname
-getTasks()
+const tasks = await getTasks()
 
 async function getTasks () {
-  let tasks = {}
-
   try {
     const json = await fs.readFile(`${__dirname}/tasks.json`)
-    tasks = await JSON.parse(json)
+    return JSON.parse(json)
   } catch (err) {
     if (err.code === 'ENOENT') {
       fs.writeFile(`${__dirname}/tasks.json`, '{}')
     }
   }
 
-  return tasks
+  return {}
+}
+
+function createTask (id, decription) {
+  const timeNow = new Date().toString()
+  tasks[id] = {
+    decription,
+    status: 'todo',
+    createdAt: timeNow,
+    updatedAt: timeNow
+  }
 }
