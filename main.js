@@ -3,6 +3,7 @@ import fs from 'fs/promises'
 import { styleText } from 'util'
 
 const __dirname = import.meta.dirname
+const tasks = await getTasks()
 
 async function getTasks () {
   try {
@@ -24,28 +25,37 @@ function saveTasks () {
 
 function addNewTask (description) {
   const timeNow = new Date().toUTCString()
-  tasks[getNextId()] = {
+  const id = getNextId()
+  tasks[id] = {
     description,
     status: 'todo',
     createdAt: timeNow,
     updatedAt: timeNow
   }
+
+  logAction('create', id, description)
 }
 
 function deleteTask (id) {
   delete tasks[id]
+
+  logAction('delete', id)
 }
 
 function updateDescription (id, description) {
   const timeNow = new Date().toUTCString()
   tasks[id].description = description
   tasks[id].updatedAt = timeNow
+
+  logAction('update description', id, description)
 }
 
 function updateStatus (id, status) {
   const timeNow = new Date().toUTCString()
   tasks[id].status = status
   tasks[id].updatedAt = timeNow
+
+  logAction('update status', id, status)
 }
 
 function getNextId () {
