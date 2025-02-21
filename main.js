@@ -3,7 +3,7 @@ import fs from 'fs/promises'
 
 const __dirname = import.meta.dirname
 const tasks = await getTasks()
-addNewTask(1, 'asjkfioahwfksahd')
+addNewTask('asjkfioahwfksahd')
 await saveTasks()
 
 async function getTasks () {
@@ -24,12 +24,21 @@ function saveTasks () {
   fs.writeFile(`${__dirname}/tasks.json`, content)
 }
 
-function addNewTask (id, decription) {
+function addNewTask (decription) {
   const timeNow = new Date().toUTCString()
-  tasks[id] = {
+  tasks[getNextId()] = {
     decription,
     status: 'todo',
     createdAt: timeNow,
     updatedAt: timeNow
   }
+}
+
+function getNextId () {
+  let nextId = 1
+  for (const id in tasks) {
+    if (nextId !== Number(id)) break
+    nextId++
+  }
+  return nextId
 }
