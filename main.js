@@ -24,14 +24,26 @@ function saveTasks () {
   fs.writeFile(`${__dirname}/tasks.json`, content)
 }
 
-function addNewTask (decription) {
+function addNewTask (description) {
   const timeNow = new Date().toUTCString()
   tasks[getNextId()] = {
-    decription,
+    description,
     status: 'todo',
     createdAt: timeNow,
     updatedAt: timeNow
   }
+}
+
+function updateDescription (id, description) {
+  const timeNow = new Date().toUTCString()
+  tasks[id].description = description
+  tasks[id].updatedAt = timeNow
+}
+
+function updateStatus (id, status) {
+  const timeNow = new Date().toUTCString()
+  tasks[id].status = status
+  tasks[id].updatedAt = timeNow
 }
 
 function getNextId () {
