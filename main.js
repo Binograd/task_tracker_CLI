@@ -4,6 +4,9 @@ import { styleText } from 'util'
 
 const __dirname = import.meta.dirname
 const tasks = await getTasks()
+addNewTask('asdlasdk')
+addNewTask('lsakdl;sk')
+saveTasks()
 
 async function getTasks () {
   try {
@@ -67,18 +70,26 @@ function getNextId () {
   return nextId
 }
 
+const colors = {
+  taskId: 'cyanBright',
+  taskName: 'reset',
+  taskStatus: 'reset',
+  taskDescription: 'reset',
+  actionTime: 'black',
+  actionDelete: 'redBright',
+  actionBase: 'greenBright'
+}
+
 function logAction (action, id, details = '') {
-  const timeNow = new Date().toUTCString()
+  const time = new Date().toUTCString()
 
   const actionColor = action === 'delete'
-    ? 'redBright'
-    : 'greenBright'
-  const timeColor = 'black'
-  const idColor = 'cyanBright'
+    ? colors.actionDelete
+    : colors.actionBase
 
-  let output = styleText(timeColor, `TIME ${timeNow} - `)
+  let output = styleText(colors.actionTime, `TIME ${time} - `)
   output += styleText(actionColor, `${action} `)
-  output += `TASK [${styleText(idColor, `ID: ${id}`)}] - `
+  output += `TASK [${styleText(colors.taskId, `ID: ${id}`)}] - `
   output += details
   console.log(output)
 }
