@@ -1,12 +1,12 @@
 'use strict'
 import fs from 'fs/promises'
 import { styleText } from 'util'
+import { colors } from './options.js'
 
 const __dirname = import.meta.dirname
 const tasks = await getTasks()
 addNewTask('asdlasdk')
 addNewTask('lsakdl;sk')
-saveTasks()
 
 async function getTasks () {
   try {
@@ -68,16 +68,6 @@ function getNextId () {
     nextId++
   }
   return nextId
-}
-
-const colors = {
-  taskId: 'cyanBright',
-  taskName: 'reset',
-  taskStatus: 'reset',
-  taskDescription: 'reset',
-  actionTime: 'black',
-  actionDelete: 'redBright',
-  actionBase: 'greenBright'
 }
 
 function logAction (action, id, details = '') {
