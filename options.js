@@ -1,8 +1,7 @@
 const colors = {
   taskId: 'cyanBright',
-  taskName: 'reset',
-  taskStatus: 'reset',
-  taskDescription: 'reset',
+  taskStatus: 'greenBright',
+  taskDescription: 'blue',
   actionTime: 'black',
   actionDelete: 'redBright',
   actionBase: 'greenBright'

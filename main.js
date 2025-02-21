@@ -5,8 +5,6 @@ import { colors } from './options.js'
 
 const __dirname = import.meta.dirname
 const tasks = await getTasks()
-addNewTask('asdlasdk')
-addNewTask('lsakdl;sk')
 
 async function getTasks () {
   try {
@@ -82,4 +80,24 @@ function logAction (action, id, details = '') {
   output += `TASK [${styleText(colors.taskId, `ID: ${id}`)}] - `
   output += details
   console.log(output)
+}
+
+function listTasks (status = null) {
+  function printTask (id, task) {
+    let output = `[${styleText(colors.taskId, `ID: ${id}`)}] - `
+    output += styleText(colors.taskStatus, `${task.status}\n`)
+    output += `Description: ${styleText(colors.taskDescription, task.description)}\n`
+    output += `Create time: ${styleText(colors.actionTime, task.createdAt)} - `
+    output += `Update time: ${styleText(colors.actionTime, task.updatedAt)}`
+
+    console.log(output)
+  }
+
+  for (const id in tasks) {
+    if (status && tasks[id].status !== status) {
+      continue
+    }
+
+    printTask(id, tasks[id])
+  }
 }
