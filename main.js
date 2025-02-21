@@ -17,6 +17,11 @@ async function getTasks () {
   return {}
 }
 
+function saveTasks () {
+  const content = JSON.stringify(tasks)
+  fs.writeFile(`${__dirname}/tasks.jcon`, content)
+}
+
 function createTask (id, decription) {
   const timeNow = new Date().toString()
   tasks[id] = {
