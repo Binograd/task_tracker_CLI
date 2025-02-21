@@ -34,6 +34,10 @@ function addNewTask (description) {
   }
 }
 
+function deleteTask (id) {
+  delete tasks[id]
+}
+
 function updateDescription (id, description) {
   const timeNow = new Date().toUTCString()
   tasks[id].description = description
