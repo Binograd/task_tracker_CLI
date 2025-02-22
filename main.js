@@ -3,8 +3,27 @@ import fs from 'fs/promises'
 import { styleText } from 'util'
 import { colors } from './options.js'
 
+const commands = initCommands()
 const __dirname = import.meta.dirname
+
 const tasks = await getTasks()
+
+const args = process.argv.slice(2)
+
+commands[args[0]](...(args.slice(1)))
+
+saveTasks()
+
+function initCommands () {
+  return {
+    add: addNewTask,
+    update: updateDescription,
+    delete: deleteTask,
+    list: listTasks,
+    'mark-in-progress': (id) => { return updateStatus(id, 'in-progress') },
+    'mark-done': (id) => { return updateStatus(id, 'done') }
+  }
+}
 
 async function getTasks () {
   try {
