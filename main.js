@@ -115,8 +115,10 @@ function logAction (action, id, details = '') {
 
   let output = styleText(colors.actionTime, `TIME ${time} - `)
   output += styleText(actionColor, `${action} `)
-  output += `TASK [${styleText(colors.taskId, `ID: ${id}`)}] - `
+  output += `TASK [${styleText(colors.taskId, `ID: ${id}`)}]`
   output += details
+    ? ` - ${details}`
+    : ''
   console.log(output)
 }
 
