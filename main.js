@@ -29,7 +29,8 @@ function initCommands () {
     delete: deleteTask,
     list: listTasks,
     'mark-in-progress': (id) => { return updateStatus(id, 'in-progress') },
-    'mark-done': (id) => { return updateStatus(id, 'done') }
+    'mark-done': (id) => { return updateStatus(id, 'done') },
+    help: showHelp
   }
 }
 
@@ -134,12 +135,40 @@ function listTasks (status = null) {
   }
 
   for (const id in tasks) {
-    if (status && tasks[id].status !== status) {
+    if (status && status !== 'all' && tasks[id].status !== status) {
       continue
     }
 
     printTask(id, tasks[id])
   }
+}
+
+function showHelp () {
+  const startStr = styleText(colors.cliStart, 'node main')
+  const idStr = styleText(colors.taskId, '[id]')
+  const descStr = styleText(colors.taskDescription, '<description>')
+
+  let output = 'List of all available commands:\n\n'
+  output += `${startStr} ${styleText(colors.cliCommand, 'add')}`
+  output += ` ${idStr} ${descStr}`
+  output += `${styleText(colors.cliDesc, '  #Add new tasks at next free id with <description>\n')}`
+  output += `${startStr} ${styleText(colors.cliCommand, 'update')}`
+  output += ` ${idStr} ${descStr}`
+  output += `${styleText(colors.cliDesc, '  #Update task <description> at [id]\n\n')}`
+  output += `${styleText(colors.cliDesc, '#You can use Add and Update without "" quotes around description\n\n')}`
+  output += `${startStr} ${styleText(colors.cliCommand, 'mark-in-progress')} ${idStr}\n`
+  output += `${startStr} ${styleText(colors.cliCommand, 'mark-done')} ${idStr}\n`
+  output += `${styleText(colors.cliDesc, '#Change status at [id] to in-progress or done\n\n')}`
+  output += `${startStr} ${styleText(colors.cliCommand, 'delete')} ${idStr}`
+  output += `${styleText(colors.cliDesc, ' #Delete task with [id]\n\n')}`
+  output += `${startStr} ${styleText(colors.cliCommand, 'list')}`
+  output += ` ${styleText(colors.taskStatus, '[status]')} `
+  output += `${styleText(colors.cliDesc, '#List all tasks with [status]\n')}`
+  output += `${styleText(colors.cliDesc, '#You can use with "all" or nothing to print all tasks\n\n')}`
+  output += `${startStr} ${styleText(colors.cliCommand, 'help')}`
+  output += `${styleText(colors.cliDesc, ' #You already know about it')}`
+
+  console.log(output)
 }
 
 function checkId (id) {

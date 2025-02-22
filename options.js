@@ -1,11 +1,14 @@
 const colors = {
   taskId: 'cyanBright',
   taskStatus: 'greenBright',
-  taskDescription: 'blue',
+  taskDescription: 'blueBright',
   actionTime: 'gray',
   actionDelete: 'redBright',
   actionBase: 'greenBright',
-  err: 'red'
+  err: 'red',
+  cliStart: 'greenBright',
+  cliCommand: 'yellowBright',
+  cliDesc: 'gray'
 }
 
 export { colors }
