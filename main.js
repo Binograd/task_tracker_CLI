@@ -52,7 +52,12 @@ function saveTasks () {
   fs.writeFile(`${__dirname}/tasks.json`, content)
 }
 
-function addNewTask (description) {
+function addNewTask (...description) {
+  description = description.join(' ')
+  if (!description) {
+    throw new TypeError('The "description" argument is required and cannot be empty')
+  }
+
   const timeNow = new Date().toUTCString()
   const id = getNextId()
   tasks[id] = {
