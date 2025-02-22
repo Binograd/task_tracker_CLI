@@ -10,7 +10,15 @@ const tasks = await getTasks()
 
 const args = process.argv.slice(2)
 
-commands[args[0]](...(args.slice(1)))
+try {
+  if (!commands[args[0]]) {
+    throw new SyntaxError('Unknown command name, try "node main help"')
+  }
+
+  commands[args[0]](...(args.slice(1)))
+} catch (err) {
+  console.error(styleText(colors.err, err.message))
+}
 
 saveTasks()
 
@@ -57,12 +65,21 @@ function addNewTask (description) {
 }
 
 function deleteTask (id) {
+  checkId(id)
+
   delete tasks[id]
 
   logAction('delete', id)
 }
 
-function updateDescription (id, description) {
+function updateDescription (id, ...description) {
+  checkId(id)
+
+  description = description.join(' ')
+  if (!description) {
+    throw new TypeError('The "description" argument is required and cannot be empty')
+  }
+
   const timeNow = new Date().toUTCString()
   tasks[id].description = description
   tasks[id].updatedAt = timeNow
@@ -71,6 +88,8 @@ function updateDescription (id, description) {
 }
 
 function updateStatus (id, status) {
+  checkId(id)
+
   const timeNow = new Date().toUTCString()
   tasks[id].status = status
   tasks[id].updatedAt = timeNow
@@ -118,5 +137,15 @@ function listTasks (status = null) {
     }
 
     printTask(id, tasks[id])
+  }
+}
+
+function checkId (id) {
+  id = Number(id)
+  if (typeof id !== 'number' || isNaN(id) || id < 0) {
+    throw new TypeError('Id should always be a natural number')
+  }
+  if (!tasks[id]) {
+    throw new RangeError('Wrong id, try "node main list" to see list of and their id\'s')
   }
 }
