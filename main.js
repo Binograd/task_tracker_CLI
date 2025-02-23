@@ -14,7 +14,7 @@ const args = process.argv.slice(2)
 
 try {
   if (!commands[args[0]]) {
-    throw new SyntaxError('Unknown command name, try "node main help"')
+    throw new SyntaxError('Unknown command name, try "task-cli help"')
   }
 
   commands[args[0]](...(args.slice(1)))
@@ -151,7 +151,7 @@ function listTasks (status = null) {
 }
 
 function showHelp () {
-  const startStr = styleText(colors.cliStart, 'node main')
+  const startStr = styleText(colors.cliStart, 'task-cli')
   const idStr = styleText(colors.taskId, '[id]')
   const descStr = styleText(colors.taskDescription, '<description>')
 
@@ -184,6 +184,6 @@ function checkId (id) {
     throw new TypeError('Id should always be a natural number')
   }
   if (!tasks[id]) {
-    throw new RangeError('Wrong id, try "node main list" to see list of and their id\'s')
+    throw new RangeError('Wrong id, try "task-cli list" to see list of all tasks and their id\'s')
   }
 }

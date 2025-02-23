@@ -1,33 +1,34 @@
 # Task Tracker CLI
 Simple task tracker based on [task-tracker](https://roadmap.sh/projects/task-tracker) from [roadmap.sh](https://roadmap.sh/)
-For now it only works with node main.js
 ### Usage
-Download or clone repo and go in main directory (task_tracker_CLI-main)  
+Download or clone repo and go in main directory (task_tracker_CLI)  
 ```git clone https://github.com/Binograd/task_tracker_CLI.git```  
 ```cd task_tracker_CLI```  
-From there you can use  
-```node main command [args]```
+Then use - 
+```npm link```  
+And now you can use task-cli command everywhere  
+```task-cli command [args]```
 ### List of all available commands:
 * add - 
-```node main add [id] <description>  #Add new tasks at next free id with <description>```
+```task-cli add [id] <description>  #Add new tasks at next free id with <description>```
 * update - 
-```node main update [id] <description>  #Update task <description> at [id]```  
+```task-cli update [id] <description>  #Update task <description> at [id]```  
 You can use Add and Update with or without "" quotes around description.
 
 * mark-(in-progress/done) - 
-```node main mark-in-progress [id]```
-```node main mark-done [id]```  
+```task-cli mark-in-progress [id]```
+```task-cli mark-done [id]```  
 Change status of task with [id] to in-progress or done respectively.
 
 * delete - 
-```node main delete [id]  #Delete task with [id]```
+```task-cli delete [id]  #Delete task with [id]```
 
 * list - 
-```node main list [status] #List all tasks with [status]```  
+```task-cli list [status] #List all tasks with [status]```  
 You can use task status as argument to list all with status and you can use 'all' or nothing to list all tasks
 
 * help - 
-```node main help```  
+```task-cli help```  
 List all commands with description
 
 ### Options
